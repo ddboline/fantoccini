@@ -314,7 +314,7 @@ impl Client {
     /// See [10.5 Switch To Frame](https://www.w3.org/TR/webdriver1/#switch-to-frame) of the
     /// WebDriver standard.
     #[cfg_attr(docsrs, doc(alias = "Switch To Frame"))]
-    pub async fn enter_frame(mut self, index: Option<u16>) -> Result<Client, error::CmdError> {
+    pub async fn enter_frame(&mut self, index: Option<u16>) -> Result<&mut Client, error::CmdError> {
         let params = SwitchToFrameParameters {
             id: index.map(FrameId::Short),
         };
@@ -327,7 +327,7 @@ impl Client {
     /// See [10.6 Switch To Parent Frame](https://www.w3.org/TR/webdriver1/#switch-to-parent-frame)
     /// of the WebDriver standard.
     #[cfg_attr(docsrs, doc(alias = "Switch To Parent Frame"))]
-    pub async fn enter_parent_frame(mut self) -> Result<Client, error::CmdError> {
+    pub async fn enter_parent_frame(&mut self) -> Result<&mut Client, error::CmdError> {
         self.issue(WebDriverCommand::SwitchToParentFrame).await?;
         Ok(self)
     }
